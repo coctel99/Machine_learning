@@ -101,8 +101,10 @@ class KNN:
         # TODO: Implement computing all distances with no loops!
         shape_Train_X = self.train_X.shape
         shape_X = X.shape
-        dists0 = np.sum(abs((self.train_X - X)), axis=0)
-        dists1 = np.sum(abs((self.train_X - X)), axis=1)
+
+        dists1 = np.sum(abs((X)), axis=1)
+        dists2 = np.sum(abs((self.train_X)), axis=1)
+        dists = abs(dists1[:, np.newaxis] - dists2)
 
         return dists
 
