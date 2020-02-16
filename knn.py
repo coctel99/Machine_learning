@@ -126,9 +126,9 @@ class KNN:
         for i in range(num_test):
             # TODO: Implement choosing best class based on k
             # nearest training samples
-            indices = np.argsort(dists[i])
-            closest = indices[:k]
-            pred[i] = self.train_y[closest]
+            arr = np.argsort(dists[i])
+            closest = arr[:k]
+            pred[i] = np.round(np.mean(self.train_y[closest]))
         return pred
 
     def predict_labels_multiclass(self, dists):
@@ -146,9 +146,12 @@ class KNN:
         num_test = dists.shape[0]
         num_test = dists.shape[0]
         pred = np.zeros(num_test, np.int)
+        k = self.k
         for i in range(num_test):
             # TODO: Implement choosing best class based on k
             # nearest training samples
-
+            indices = np.argsort(dists[i])
+            closest = indices[:k]
+            pred[i] = self.train_y[closest]
             pass
         return pred
