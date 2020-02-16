@@ -152,6 +152,6 @@ class KNN:
             # nearest training samples
             indices = np.argsort(dists[i])
             closest = indices[:k]
-            pred[i] = self.train_y[closest]
-            pass
+            pred[i] = np.round(np.mean(self.train_y[closest]))
+
         return pred
