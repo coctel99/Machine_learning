@@ -99,12 +99,12 @@ class KNN:
         # Using float32 to to save memory - the default is float64
         dists = np.zeros((num_test, num_train), np.float32)
         # TODO: Implement computing all distances with no loops!
-        shape_Train_X = self.train_X.shape
-        shape_X = X.shape
-
-        dists1 = np.sum(abs((X)), axis=1)
-        dists2 = np.sum(abs((self.train_X)), axis=1)
+        """
+        dists1 = np.sum(abs(X), axis=1)
+        dists2 = np.sum(abs(self.train_X), axis=1)
         dists = abs(dists1[:, np.newaxis] - dists2)
+        """
+        dists = np.sum(np.abs(self.train_X[:, None] - X[None, :]), axis=2).T
 
         return dists
 

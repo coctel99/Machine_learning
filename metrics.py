@@ -35,10 +35,25 @@ def binary_classification_metrics(prediction, ground_truth):
             else:
                 false_neg += 1
 
-    precision = true_pos / (true_pos + false_pos)
-    recall = true_pos / (true_pos + false_neg)
-    f1 = 2 * recall * precision / (recall + precision)
-    accuracy = (true_pos + true_neg) / prediction.shape[0]
+    if true_pos + false_pos == 0:
+        precision = 0
+    else:
+        precision = true_pos / (true_pos + false_pos)
+
+    if true_pos + false_neg == 0:
+        recall = 0
+    else:
+        recall = true_pos / (true_pos + false_neg)
+
+    if recall + precision == 0:
+        f1 = 0
+    else:
+        f1 = 2 * recall * precision / (recall + precision)
+
+    if prediction.shape[0] == 0:
+        accuracy = 0
+    else:
+        accuracy = (true_pos + true_neg) / prediction.shape[0]
 
     return precision, recall, f1, accuracy
 
@@ -59,6 +74,10 @@ def multiclass_accuracy(prediction, ground_truth):
     for i in range(ground_truth.shape[0]):
         if prediction[i] == ground_truth[i]:
             correct += 1
-    accuracy = correct / prediction.shape[0]
+
+    if prediction.shape[0] == 0:
+        accuracy = 0
+    else:
+        accuracy = correct / prediction.shape[0]
 
     return accuracy
